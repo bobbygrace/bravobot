@@ -11,14 +11,18 @@ $(document).ready(function(){
         return decodeURIComponent(pair[1]);
       }
     }
-    return(false);
+    return(null);
   }
 
   var toStr = getQueryVariable("to");
   var msgStr = getQueryVariable("msg");
   var fromStr = getQueryVariable("from");
 
-  if(fromStr === false) {
+  if(toStr !== null) {
+    toStr = ", " + toStr;
+  };
+
+  if(fromStr === null) {
     var fromStr = "your secret admirer <3";
   };
 
