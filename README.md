@@ -1,4 +1,4 @@
-[Bravo, you!](https://dl.dropboxusercontent.com/u/379970/bravo.png)
+![Bravo, you!](https://dl.dropboxusercontent.com/u/379970/bravo.png)
 
 Gives bravos, little pictorial congratulations, to friends via HTML.
 
