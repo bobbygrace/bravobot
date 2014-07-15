@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Open Sans Condensed', 'Oswald', 'Source Sans Pro', sans-serif;
+  font-size: 26px;
+  line-height: 1.2em;
+}
+
+.bravo {
+  background-color: #000;
+  color: #fff;
+  width: 500px;
+  position: relative;
+  text-align: center;
+}
+
+  .bravo-background {
+    background-size: cover;
+    background-position: center;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0;
+    -webkit-filter: saturate(.6) contrast(.8);
+    box-shadow:
+      inset 0 0 250px hsla(0, 0%, 0%, 0.4),
+      inset 0 -100px 150px hsla(0, 0%, 0%, 0.6);
+    opacity: 0.8;
+  }
+
+  .bravo-details {
+    position: relative;
+    z-index: 1;
+    padding: 250px 25px 25px;
+    text-shadow: 0 2px 4px hsla(0, 0%, 0%, 0.5);
+  }
+
+    .bravo-details-to {
+      margin-bottom: 0.5em;
+    }
+
+    .bravo-details-msg {
+      margin-bottom: 0.5em;
+    }
+
+    .bravo-details-from {
+    }
+
