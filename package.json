@@ -1,0 +1,12 @@
+{
+  "name": "bravo",
+  "description": "Give a bravo!",
+  "version": "0.1.0",
+  "repository": "https://github.com/bobbygrace/bravo-html",
+  "engines": {
+    "node": ">=0.8.4"
+  },
+  "dependencies": {
+    "express": "3.x"
+  }
+}
