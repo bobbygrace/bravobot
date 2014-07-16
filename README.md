@@ -2,22 +2,25 @@
 
 Send bravos, little pictorial congratulations, via [slack.com](https://slack.com/).
 
-To get up and running:
+To get the app up and running:
 
 - `brew install phantomjs` (or [download](http://phantomjs.org/download.html))
 - `npm install`
 - `coffee app.coffee`
 
-Set up a [new slash command in slack](https://trello.slack.com/services/new/slash-commands)
-with the command “/bravo” and the URL you set up the 
+Get this li’l node app up set up on some accessible server (or use
+[ngrok](https://ngrok.com/)).
 
-Set up an [incoming webhook](https://trello.slack.com/services/new/incoming-webhook).
-(Hint: the channel won’t matter.) Put your custom token in a file called “token”
-in the app’s root path.
+In Slack, set up a [new slash command](https://trello.slack.com/services/new/slash-commands)
+with the command “/bravo”. Add the URL, and use “Post” for the Method.
 
-Enable the command in a channel, then do…
+Then set up an [incoming webhook](https://trello.slack.com/services/new/incoming-webhook).
+(Hint: the channel won’t matter.) Put your custom token in a file called
+“token” in the app’s root path.
 
-"/bravo @username for getting bravobot up and running!"
+Then send a message in a channel, like…
 
-…then Bravo Bot come along will do its magic and return and custom image for
+“/bravo @username for getting bravobot up and running!”
+
+…then Bravo Bot come along, mention the person, and post a custom image for
 you. Bravo, you did it! :D
