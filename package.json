@@ -10,6 +10,7 @@
     "express": "~3.14.0",
     "phantom": "~0.6.5",
     "node-uuid": "~1.4.1",
-    "body-parser": "~1.4.3"
+    "body-parser": "~1.4.3",
+    "request": "~2.37.0"
   }
 }

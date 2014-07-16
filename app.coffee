@@ -2,22 +2,36 @@ phantom = require 'phantom'
 uuid = require 'node-uuid'
 express = require 'express'
 bodyParser = require 'body-parser'
+fs = require 'fs'
 http = require 'http'
+request = require 'request'
 app = express()
 
-app.use(express.static(__dirname + '/public'))
+token = fs.readFileSync("token")
+hostname = 'http://6468b236.ngrok.com'
+
+app.use '/bravos', express.static(__dirname + '/bravos')
 app.use bodyParser.urlencoded()
 
-app.get "/*", (req, res) ->
-  res.sendfile(__dirname + '/public/bravo.html')
+slack = (channel, text, next) ->
+  opts = {channel, text}
+  opts.icon_emoji = ':heart:'
+  opts.username = 'Bravo Bot'
+  opts.parse = 'full'
+
+  request.post "https://trello.slack.com/services/hooks/incoming-webhook?token=#{token}", {form: {payload: JSON.stringify(opts) }}, (err, res, body) ->
+    next(err)
 
 app.post "/", (req, res) ->
   text = req.body.text
-  to = text.split(' ')[0]
+  to = text.split(' ')[0].replace /^@/, ''
   msg = text.split(' ')[1...].join(' ')
+  channel = '#' + req.body.channel_name
 
   generateBravo to, msg, "@#{req.body.user_name}", (filename) ->
-    res.send("everything is fine")
+    path = [hostname, filename].join('/')
+    slack channel, "Bravo, @#{to}! #{path}", ->
+      res.send("")
 
 app.listen(8080)
 
