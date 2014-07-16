@@ -16,7 +16,7 @@ app.post "/", (req, res) ->
   to = text.split(' ')[0]
   msg = text.split(' ')[1...].join(' ')
 
-  generateBravo to, msg, req.body.user_name, (filename) ->
+  generateBravo to, msg, "@#{req.body.user_name}", (filename) ->
     res.send("everything is fine")
 
 app.listen(8080)
