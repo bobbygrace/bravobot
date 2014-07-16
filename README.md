@@ -12,8 +12,8 @@ Set up a [new slash command in slack](https://trello.slack.com/services/new/slas
 with the command “/bravo” and the URL you set up the 
 
 Set up an [incoming webhook](https://trello.slack.com/services/new/incoming-webhook).
-Hint: you can change the channel later. Put your custom token in a file called
-“token” in the app’s root path.
+(Hint: the channel won’t matter.) Put your custom token in a file called “token”
+in the app’s root path.
 
 Enable the command in a channel, then do…
 
