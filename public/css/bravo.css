@@ -40,7 +40,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .bravo-details {
-    opacity: 0.8;
     position: relative;
     padding: 250px 25px 25px;
     text-shadow: 0 2px 4px hsla(0, 0%, 0%, 0.5);
@@ -50,6 +49,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .bravo-details-to {
       margin-bottom: 0.2em;
+      opacity: 0.8;
     }
 
     .bravo-details-msg {
