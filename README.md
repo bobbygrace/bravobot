@@ -8,6 +8,9 @@ To get the app up and running:
 - `npm install`
 - `coffee app.coffee`
 
+Also get [Open Sans Condensed](https://www.google.com/fonts#UsePlace:use/Collection:Open+Sans+Condensed)
+and add it to your system. Phantom.js doesn’t like webfonts. :/
+
 Get this li’l node app up set up on some accessible server (or use
 [ngrok](https://ngrok.com/)).
 
