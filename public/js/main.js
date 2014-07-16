@@ -1,36 +1,5 @@
 $(document).ready(function(){
 
-  // Fill the Message
-
-  function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i=0;i<vars.length;i++) {
-      var pair = vars[i].split("=");
-      if(pair[0] == variable){
-        return decodeURIComponent(pair[1]);
-      }
-    }
-    return(null);
-  }
-
-  var toStr = getQueryVariable("to");
-  var msgStr = getQueryVariable("msg");
-  var fromStr = getQueryVariable("from");
-
-  if(toStr !== null) {
-    toStr = ", " + toStr;
-  };
-
-  if(fromStr === null) {
-    var fromStr = "your secret admirer <3";
-  };
-
-  $(".js-to").text(toStr);
-  $(".js-msg").text(msgStr);
-  $(".js-from").text(fromStr);
-
-
   // Background Image
 
   var backgroundImages = [
