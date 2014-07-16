@@ -1,16 +1,23 @@
 ![Bravo, you!](https://dl.dropboxusercontent.com/u/379970/bravo.png)
 
-Gives bravos, little pictorial congratulations, via URLs.
+Send bravos, little pictorial congratulations, via [slack.com](https://slack.com/).
 
 To get up and running:
 
+- `brew install phantomjs` (or [download](http://phantomjs.org/download.html))
 - `npm install`
 - `coffee app.coffee`
 
-Then use “to”, “msg”, and “from” URI query strings, like… 
+Set up a [new slash command in slack](https://trello.slack.com/services/new/slash-commands)
+with the command “/bravo” and the URL you set up the 
 
-`localhost:8080/?to=@person&msg=Way%20to%20go!&from=@me`
+Set up an [incoming webhook](https://trello.slack.com/services/new/incoming-webhook).
+Hint: you can change the channel later. Put your custom token in a file called
+“token” in the app’s root path.
 
-Drop the “from” to send it from “a secret admirer <3”! Drop all the fields to send a generic “Bravo! from a secret admirer <3”!
+Enable the command in a channel, then do…
 
-Bravo, you did it! :D
+"/bravo @username for getting bravobot up and running!"
+
+…then Bravo Bot come along will do its magic and return and custom image for
+you. Bravo, you did it! :D
