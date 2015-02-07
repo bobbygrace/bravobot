@@ -8,9 +8,9 @@ request = require 'request'
 app = express()
 
 # You’ll want to change these, obviously.
-token = fs.readFileSync("token")
-hostname = 'http://6468b236.ngrok.com'
-slackSubdomain = "trello"
+webhookUrl = fs.readFileSync("webhookurl", {encoding: "utf8"})
+token = fs.readFileSync("token", {encoding: "utf8"})
+hostname = 'http://51e2e2e8.ngrok.com'
 
 app.use '/bravos', express.static(__dirname + '/bravos')
 app.use bodyParser.urlencoded()
@@ -38,14 +38,15 @@ generateBravo = (to, msg, from, callback) ->
 
 postToSlack = (channel, text, next) ->
   opts = {channel, text}
-  opts.icon_emoji = ':heart:'
   opts.username = 'Bravo Bot'
   opts.parse = 'full'
 
-  request.post "https://#{slackSubdomain}.slack.com/services/hooks/incoming-webhook?token=#{token}", {form: {payload: JSON.stringify(opts) }}, (err, res, body) ->
+  request.post webhookUrl, {form: {payload: JSON.stringify(opts) }}, (err, res, body) ->
     next(err)
 
 app.post "/", (req, res) ->
+  return if req.body.token.trim() != token.trim()
+
   text = req.body.text
   to = text.split(' ')[0]
 
