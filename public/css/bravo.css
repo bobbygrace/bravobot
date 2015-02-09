@@ -4,13 +4,13 @@
 }
 
 html {
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: 'Open Sans Condensed', "Ubuntu Condensed", sans-serif;
   font-size: 32px;
   line-height: 1.2;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: 'Open Sans Condensed', "Ubuntu Condensed", sans-serif;
   line-height: 1.2;
 }
 
