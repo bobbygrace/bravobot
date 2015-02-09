@@ -98,4 +98,4 @@ app.post "/", (req, res) ->
       postToSlack channel, "Bravo, #{toPrefix}#{to}! #{url}", ->
         res.send("")
 
-app.listen(8080)
+app.listen(10040)
