@@ -43,11 +43,13 @@ generateBravo = (to, msg, from, next) ->
             document.getElementsByClassName("js-from")[0].textContent = from
           , (->), to, msg, from
 
-          id = uuid.v4()
-          filename = "bravos/#{id}.jpg"
-          page.render filename, format: "jpg", ->
-            next(filename)
-            ph.exit()
+          setTimeout ->
+            id = uuid.v4()
+            filename = "bravos/#{id}.jpg"
+            page.render filename, format: "jpg", ->
+              next(filename)
+              ph.exit()
+          , 200
 
 postBravoTos3 = (filename, next) ->
 
@@ -83,19 +85,29 @@ app.post "/", (req, res) ->
   text = req.body.text
   to = text.split(' ')[0]
 
-  toPrefix = '@'
+  toPrefix = ', @'
 
   if /^\#/.test(to)
-    toPrefix = "#"
+    toPrefix = ", #"
 
   to = to.replace /^(@|#)/, ''
+
+  if to == ""
+    toPrefix = ""
+    to = "!"
+    emptyTo = true
 
   msg = text.split(' ')[1...].join(' ')
   channel = '#' + req.body.channel_name
 
   generateBravo "#{toPrefix}#{to}", msg, "@#{req.body.user_name}", (filename) ->
     postBravoTos3 filename, (url) ->
-      postToSlack channel, "Bravo, #{toPrefix}#{to}! #{url}", ->
+      if emptyTo
+        msg = "Bravo!"
+      else
+        msg = "Bravo#{toPrefix}#{to}!"
+
+      postToSlack channel, "#{msg} #{url}", ->
         res.send("")
 
 app.listen(10040)
