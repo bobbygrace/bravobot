@@ -33,14 +33,16 @@ public.
 Add a config.json file in the root of your project with all your secrets.
 You config.json file will look something like this:
 
-```{
+```
+{
   "webhookUrl": "https://hooks.slack.com/services/123456/123456/123456",
   "token": "123456",
   "awsAccessKeyId": "123456",
   "awsSecretKey": "123456",
   "s3bucket": "bravobot",
   "s3region": "us-west-2"
-}```
+}
+```
 
 Don't share your config file, obviously.
 
