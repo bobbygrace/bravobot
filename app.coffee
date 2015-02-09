@@ -5,17 +5,30 @@ bodyParser = require 'body-parser'
 fs = require 'fs'
 http = require 'http'
 request = require 'request'
+s3 = require 's3'
 app = express()
 
-# You’ll want to change these, obviously.
-webhookUrl = fs.readFileSync("webhookurl", {encoding: "utf8"})
-token = fs.readFileSync("token", {encoding: "utf8"})
-hostname = 'http://51e2e2e8.ngrok.com'
+config = require './config'
 
-app.use '/bravos', express.static(__dirname + '/bravos')
+webhookUrl = config.webhookUrl
+token = config.token
+awsAccessKeyId = config.awsAccessKeyId
+awsSecretKey = config.awsSecretKey
+s3bucket = config.s3bucket
+s3region = config.s3region
+s3Url = "https://s3-#{s3region}.amazonaws.com/#{s3bucket}"
+
 app.use bodyParser.urlencoded()
 
-generateBravo = (to, msg, from, callback) ->
+client = s3.createClient({
+  s3Options: {
+    accessKeyId: awsAccessKeyId.trim()
+    secretAccessKey: awsSecretKey.trim()
+  }
+})
+
+
+generateBravo = (to, msg, from, next) ->
   phantom.create (ph) ->
     ph.createPage (page) ->
       pagePath = "#{__dirname}/public/bravo.html"
@@ -32,9 +45,29 @@ generateBravo = (to, msg, from, callback) ->
 
           id = uuid.v4()
           filename = "bravos/#{id}.jpg"
-          page.render filename, format: "jpg"
-          ph.exit()
-          callback(filename)
+          page.render filename, format: "jpg", ->
+            next(filename)
+            ph.exit()
+
+postBravoTos3 = (filename, next) ->
+
+  params = {
+    localFile: filename
+    s3Params: {
+      Bucket: s3bucket
+      Key: filename
+      ContentType: "image/jpeg"
+    }
+  }
+
+  uploader = client.uploadFile(params)
+
+  uploader.on 'error', (err) ->
+    console.error "unable to upload: ", err.stack
+
+  uploader.on 'end', (data) ->
+    imgUrl = [s3Url, filename].join("/")
+    next(imgUrl)
 
 postToSlack = (channel, text, next) ->
   opts = {channel, text}
@@ -45,7 +78,7 @@ postToSlack = (channel, text, next) ->
     next(err)
 
 app.post "/", (req, res) ->
-  return if req.body.token.trim() != token.trim()
+  return if req.body.token != token
 
   text = req.body.text
   to = text.split(' ')[0]
@@ -61,8 +94,8 @@ app.post "/", (req, res) ->
   channel = '#' + req.body.channel_name
 
   generateBravo "#{toPrefix}#{to}", msg, "@#{req.body.user_name}", (filename) ->
-    path = [hostname, filename].join('/')
-    postToSlack channel, "Bravo, #{toPrefix}#{to}! #{path}", ->
-      res.send("")
+    postBravoTos3 filename, (url) ->
+      postToSlack channel, "Bravo, #{toPrefix}#{to}! #{url}", ->
+        res.send("")
 
 app.listen(8080)
