@@ -97,7 +97,11 @@ app.post "/", (req, res) ->
     to = "!"
     emptyTo = true
 
-  msg = text.split(' ')[1...].join(' ')
+  if text.split(' ').length > 1
+    msg = text.split(' ')[1...].join(' ')
+  else
+    msg = 'Bravo!'
+
   channel = '#' + req.body.channel_name
 
   generateBravo "#{toPrefix}#{to}", msg, "@#{req.body.user_name}", (filename) ->
